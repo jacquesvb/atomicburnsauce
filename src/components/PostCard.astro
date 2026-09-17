@@ -1,0 +1,47 @@
+---
+import { Image } from 'astro:assets';
+import type { Post } from '../lib/posts';
+import { formatDate } from '../lib/posts';
+import TagList from './TagList.astro';
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const { title, description, pubDate, heroImage, heroImageAlt, tags } =
+  post.data;
+const href = `/blog/${post.id}/`;
+---
+
+<article
+  class="group flex flex-col gap-4 border-b border-neutral-800/80 pb-8 sm:flex-row sm:items-start"
+>
+  {
+    heroImage && (
+      <a href={href} class="sm:order-2 sm:w-40 sm:shrink-0">
+        <Image
+          src={heroImage}
+          alt={heroImageAlt ?? ''}
+          widths={[320, 640]}
+          sizes="(min-width: 640px) 160px, 100vw"
+          class="h-40 w-full rounded-lg object-cover sm:h-28"
+          loading="lazy"
+        />
+      </a>
+    )
+  }
+
+  <div class="flex flex-1 flex-col gap-2">
+    <h2 class="font-serif text-xl font-semibold text-neutral-50">
+      <a href={href} class="transition-colors group-hover:text-brand-400">
+        {title}
+      </a>
+    </h2>
+    <p class="text-sm text-neutral-400">{description}</p>
+    <div class="flex flex-col gap-2 text-xs text-neutral-500">
+      <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+      <TagList tags={tags} />
+    </div>
+  </div>
+</article>

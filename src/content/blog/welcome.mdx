@@ -1,0 +1,55 @@
+---
+title: 'Welcome to Atomic Burn Sauce'
+description: 'A first post, a self-hosted audio clip, a self-hosted video, and third-party embeds — all in one place.'
+pubDate: 2026-09-01
+heroImage: '../../assets/hero-welcome.png'
+heroImageAlt: 'Orange gradient with the word Welcome'
+tags: ['meta', 'astro']
+---
+
+import AudioPlayer from '../../components/AudioPlayer.astro';
+import VideoPlayer from '../../components/VideoPlayer.astro';
+import MediaEmbed from '../../components/MediaEmbed.astro';
+
+This is the first post. It doubles as a tour of what this blog can do: **MDX**, tags,
+images, self-hosted media, and third-party embeds.
+
+## Images
+
+Images can live in `public/` and be referenced with plain Markdown:
+
+![A self-hosted diagram from the public folder](/images/diagram.png)
+
+Or they can be imported and optimized through Astro's asset pipeline. The hero image
+above is a good example.
+
+## Self-hosted media
+
+Files you own go in `public/audio` and `public/video`. Both are wrapped in small
+components so the markup stays tidy.
+
+<AudioPlayer
+  src="/audio/sample.mp3"
+  title="Sample tone (440 Hz, 5s)"
+  caption="Generated for testing, lives in public/audio/sample.mp3"
+/>
+
+<VideoPlayer
+  src="/video/sample.mp4"
+  poster="/images/video-poster.png"
+  caption="Self-hosted video with a poster frame"
+/>
+
+## Third-party embeds
+
+Streaming services get a lazy iframe instead. Here is a YouTube video:
+
+<MediaEmbed provider="youtube" id="dQw4w9WgXcQ" title="Example YouTube embed" />
+
+Anything you do not want to host yourself can be embedded without adding weight to the
+repo.
+
+## Tags and sharing
+
+Every post is tagged, and every tag gets its own page. Sharing links sit right below the
+title, and the whole site publishes an RSS feed at `/rss.xml`.

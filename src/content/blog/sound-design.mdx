@@ -1,0 +1,41 @@
+---
+title: 'Notes on sound design'
+description: 'A quick look at hosting audio yourself versus leaning on streaming platforms.'
+pubDate: 2026-09-08
+updatedDate: 2026-09-10
+heroImage: '../../assets/hero-sound.png'
+heroImageAlt: 'Blue gradient with the word Sound'
+tags: ['music', 'audio', 'meta']
+---
+
+import AudioPlayer from '../../components/AudioPlayer.astro';
+import MediaEmbed from '../../components/MediaEmbed.astro';
+
+There are two ways to put audio on a blog, and they are good at different things.
+
+## Self-hosted
+
+If you have the file, serve it yourself. You keep control, there is no third-party
+tracking, and it works offline once cached.
+
+<AudioPlayer src="/audio/sample.mp3" title="Sample tone" />
+
+The trade-off is bandwidth. Audio and video are heavy, so keep an eye on your host's
+limits if you do this a lot.
+
+## Third-party
+
+For anything on a streaming platform, an embed is cheaper to run and gives listeners
+controls they already know.
+
+<MediaEmbed
+  provider="spotify"
+  id="track/4uLU6hMCjMI75M1A2tKUQC"
+  title="Example Spotify embed"
+/>
+
+## Picking
+
+- Original recordings you want to keep forever: self-host.
+- A track that already lives on a platform: embed it.
+- Both at once: do both, with the embed as a fallback.

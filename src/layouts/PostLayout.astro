@@ -1,0 +1,87 @@
+---
+import { Image } from 'astro:assets';
+import type { Post } from '../lib/posts';
+import { formatDate, absoluteUrl } from '../lib/posts';
+import BaseLayout from './BaseLayout.astro';
+import TagList from '../components/TagList.astro';
+import ShareLinks from '../components/ShareLinks.astro';
+
+interface Props {
+  post: Post;
+  readingTime: number;
+}
+
+const { post, readingTime } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, heroImageAlt, tags } =
+  post.data;
+
+const postUrl = absoluteUrl(`/blog/${post.id}/`, Astro.site);
+const ogImage = heroImage
+  ? new URL(heroImage.src, Astro.site).toString()
+  : undefined;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  image={ogImage}
+  type="article"
+  publishedTime={pubDate}
+  modifiedTime={updatedDate}
+  tags={tags}
+>
+  <article class="flex flex-col gap-8">
+    <header class="flex flex-col gap-4">
+      <h1
+        class="font-serif text-3xl font-semibold leading-tight tracking-tight text-neutral-50 sm:text-4xl"
+      >
+        {title}
+      </h1>
+
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-neutral-500">
+        <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+        <span aria-hidden="true">&middot;</span>
+        <span>{readingTime} min read</span>
+        {
+          updatedDate && (
+            <>
+              <span aria-hidden="true">&middot;</span>
+              <span>Updated {formatDate(updatedDate)}</span>
+            </>
+          )
+        }
+      </div>
+
+      <TagList tags={tags} />
+    </header>
+
+    {
+      heroImage && (
+        <Image
+          src={heroImage}
+          alt={heroImageAlt ?? ''}
+          widths={[640, 960, 1280]}
+          sizes="(min-width: 768px) 768px, 100vw"
+          class="w-full rounded-xl border border-neutral-800 object-cover"
+        />
+      )
+    }
+
+    <ShareLinks url={postUrl} title={title} />
+
+    <div
+      class="prose prose-invert prose-neutral max-w-none prose-headings:font-serif prose-a:text-brand-400 prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl"
+    >
+      <slot />
+    </div>
+
+    <footer class="border-t border-neutral-800/80 pt-6">
+      <a
+        href="/blog/"
+        class="text-sm text-neutral-400 transition-colors hover:text-brand-400"
+      >
+        &larr; All posts
+      </a>
+    </footer>
+  </article>
+</BaseLayout>

@@ -1,0 +1,77 @@
+---
+type Provider = 'youtube' | 'vimeo' | 'spotify' | 'soundcloud' | 'bandcamp';
+
+interface Props {
+  provider: Provider;
+  id?: string;
+  src?: string;
+  title?: string;
+  height?: number;
+  class?: string;
+}
+
+const { provider, id, src, title, height, class: className = '' } = Astro.props;
+
+const cleanId = id?.replace(/^\/+/, '');
+
+function buildSrc(): string {
+  if (src) return src;
+
+  switch (provider) {
+    case 'youtube':
+      return `https://www.youtube-nocookie.com/embed/${cleanId}`;
+    case 'vimeo':
+      return `https://player.vimeo.com/video/${cleanId}`;
+    case 'spotify':
+      return `https://open.spotify.com/embed/${cleanId}`;
+    case 'soundcloud':
+      return `https://w.soundcloud.com/player/?url=${encodeURIComponent(
+        id ?? '',
+      )}&color=%23f97316&auto_play=false&hide_related=true&show_comments=false&show_user=true&visual=true`;
+    case 'bandcamp':
+      return id ?? '';
+  }
+}
+
+const embedSrc = buildSrc();
+const isVideo = provider === 'youtube' || provider === 'vimeo';
+const frameHeight = height ?? (provider === 'soundcloud' ? 166 : 152);
+
+const label =
+  title ?? `${provider.charAt(0).toUpperCase() + provider.slice(1)} embed`;
+---
+
+{
+  embedSrc && (
+    <figure class={`not-prose my-8 ${className}`}>
+      {isVideo ? (
+        <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-800">
+          <iframe
+            src={embedSrc}
+            title={label}
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            class="absolute inset-0 h-full w-full"
+          />
+        </div>
+      ) : (
+        <iframe
+          src={embedSrc}
+          title={label}
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          style={`height: ${frameHeight}px`}
+          class="w-full rounded-xl border border-neutral-800"
+        />
+      )}
+      {title && (
+        <figcaption class="mt-2 text-center text-xs text-neutral-500">
+          {title}
+        </figcaption>
+      )}
+    </figure>
+  )
+}

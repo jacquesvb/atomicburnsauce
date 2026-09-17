@@ -1,0 +1,26 @@
+---
+interface Props {
+  src: string;
+  title?: string;
+  caption?: string;
+  class?: string;
+}
+
+const { src, title, caption, class: className = '' } = Astro.props;
+---
+
+<figure class={`not-prose my-8 ${className}`}>
+  <div
+    class="rounded-xl border border-neutral-800 bg-neutral-900 p-4"
+    role="group"
+    aria-label={title ?? 'Audio player'}
+  >
+    {title && <p class="mb-3 text-sm font-medium text-neutral-200">{title}</p>}
+    <audio controls preload="metadata" src={src} class="w-full"></audio>
+  </div>
+  {caption && (
+    <figcaption class="mt-2 text-center text-xs text-neutral-500">
+      {caption}
+    </figcaption>
+  )}
+</figure>

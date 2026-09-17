@@ -1,0 +1,36 @@
+---
+interface Props {
+  src: string;
+  poster?: string;
+  title?: string;
+  caption?: string;
+  class?: string;
+}
+
+const {
+  src,
+  poster,
+  title,
+  caption,
+  class: className = '',
+} = Astro.props;
+---
+
+<figure class={`not-prose my-8 ${className}`}>
+  <video
+    controls
+    preload="metadata"
+    poster={poster}
+    title={title}
+    playsinline
+    class="w-full rounded-xl border border-neutral-800 bg-black"
+  >
+    <source src={src} />
+    Your browser does not support the video tag.
+  </video>
+  {(title || caption) && (
+    <figcaption class="mt-2 text-center text-xs text-neutral-500">
+      {caption ?? title}
+    </figcaption>
+  )}
+</figure>

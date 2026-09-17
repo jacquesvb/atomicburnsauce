@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import { getPublishedPosts } from '../lib/posts';
+
+const posts = await getPublishedPosts();
+const recent = posts.slice(0, 5);
+---
+
+<BaseLayout description="Notes, sounds, and moving pictures from Atomic Burn Sauce.">
+  <section class="mb-12 flex flex-col gap-4">
+    <h1
+      class="font-serif text-3xl font-semibold tracking-tight text-neutral-50 sm:text-4xl"
+    >
+      Atomic Burn Sauce
+    </h1>
+    <p class="max-w-prose text-neutral-400">
+      Notes, sounds, and moving pictures. A personal blog about whatever is
+      currently on the stove.
+    </p>
+  </section>
+
+  <section class="flex flex-col gap-8">
+    <div class="flex items-baseline justify-between">
+      <h2 class="font-serif text-xl font-semibold text-neutral-100">
+        Recent posts
+      </h2>
+      <a
+        href="/blog/"
+        class="text-sm text-neutral-400 transition-colors hover:text-brand-400"
+      >
+        View all
+      </a>
+    </div>
+
+    {
+      recent.length === 0 ? (
+        <p class="text-neutral-500">No posts yet.</p>
+      ) : (
+        recent.map((post) => <PostCard post={post} />)
+      )
+    }
+  </section>
+</BaseLayout>
