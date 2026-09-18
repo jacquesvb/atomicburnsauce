@@ -1,0 +1,46 @@
+---
+---
+
+<button
+  id="crt-toggle"
+  type="button"
+  class="group inline-flex items-center gap-2 border-2 border-wood-600 bg-ink-900 px-3 py-1.5 text-xs uppercase tracking-widest text-muted transition-colors hover:border-sun hover:text-sun"
+  aria-pressed="true"
+>
+  <span
+    id="crt-led"
+    class="inline-block h-2 w-2 bg-led shadow-[0_0_6px_var(--color-led)]"
+    aria-hidden="true"></span>
+  <span>CRT</span>
+  <span id="crt-state" class="text-cream-300">[ON]</span>
+</button>
+
+<script>
+  const button = document.getElementById('crt-toggle');
+  const state = document.getElementById('crt-state');
+  const led = document.getElementById('crt-led') as HTMLElement | null;
+  const root = document.documentElement;
+
+  function render() {
+    const on = root.dataset.crt !== 'off';
+    if (state) state.textContent = on ? '[ON]' : '[OFF]';
+    button?.setAttribute('aria-pressed', String(on));
+    if (led) {
+      led.style.backgroundColor = on ? 'var(--color-led)' : 'var(--color-wood-600)';
+      led.style.boxShadow = on ? '0 0 6px var(--color-led)' : 'none';
+    }
+  }
+
+  render();
+
+  button?.addEventListener('click', () => {
+    const on = root.dataset.crt !== 'off';
+    root.dataset.crt = on ? 'off' : 'on';
+    try {
+      localStorage.setItem('crt', on ? 'off' : 'on');
+    } catch {
+      /* ignore */
+    }
+    render();
+  });
+</script>

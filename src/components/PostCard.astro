@@ -6,42 +6,54 @@ import TagList from './TagList.astro';
 
 interface Props {
   post: Post;
+  index?: number;
 }
 
-const { post } = Astro.props;
+const { post, index } = Astro.props;
 const { title, description, pubDate, heroImage, heroImageAlt, tags } =
   post.data;
 const href = `/blog/${post.id}/`;
+const cart = index !== undefined ? String(index).padStart(2, '0') : null;
 ---
 
 <article
-  class="group flex flex-col gap-4 border-b border-neutral-800/80 pb-8 sm:flex-row sm:items-start"
+  class={`group grid gap-4 border-2 border-wood-700 bg-ink-900 p-4 transition-colors hover:border-brand-600 ${
+    heroImage ? 'sm:grid-cols-[9rem_1fr]' : ''
+  }`}
 >
   {
     heroImage && (
-      <a href={href} class="sm:order-2 sm:w-40 sm:shrink-0">
+      <a href={href} class="pixel-frame block overflow-hidden">
         <Image
           src={heroImage}
           alt={heroImageAlt ?? ''}
           widths={[320, 640]}
-          sizes="(min-width: 640px) 160px, 100vw"
-          class="h-40 w-full rounded-lg object-cover sm:h-28"
+          sizes="(min-width: 640px) 144px, 100vw"
+          class="pixelated h-40 w-full object-cover sm:h-full"
           loading="lazy"
         />
       </a>
     )
   }
 
-  <div class="flex flex-1 flex-col gap-2">
-    <h2 class="font-serif text-xl font-semibold text-neutral-50">
-      <a href={href} class="transition-colors group-hover:text-brand-400">
+  <div class="flex flex-1 flex-col gap-3">
+    <div
+      class="flex items-center gap-3 font-terminal text-base uppercase text-muted"
+    >
+      {cart && <span class="text-sun">CART {cart}</span>}
+      <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+    </div>
+
+    <h2
+      class="font-display text-xs leading-relaxed text-cream-100 sm:text-sm sm:leading-relaxed"
+    >
+      <a href={href} class="transition-colors group-hover:text-sun">
         {title}
       </a>
     </h2>
-    <p class="text-sm text-neutral-400">{description}</p>
-    <div class="flex flex-col gap-2 text-xs text-neutral-500">
-      <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
-      <TagList tags={tags} />
-    </div>
+
+    <p class="text-sm text-cream-300">{description}</p>
+
+    <TagList tags={tags} />
   </div>
 </article>

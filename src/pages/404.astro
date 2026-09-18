@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="404" description="Page not found.">
+  <section class="flex flex-col items-center gap-6 py-16 text-center">
+    <p class="font-terminal text-lg uppercase text-muted">
+      &gt; ERROR 404 // SIGNAL LOST
+    </p>
+
+    <h1
+      class="font-display text-2xl leading-relaxed text-brand-500 glow-text sm:text-4xl sm:leading-relaxed"
+    >
+      GAME OVER
+    </h1>
+
+    <p class="max-w-md text-cream-300">
+      The page you were looking for burned out. Try inserting another coin.
+    </p>
+
+    <div class="flex flex-wrap justify-center gap-3">
+      <a
+        href="/"
+        class="inline-block border-2 border-brand-600 bg-ink-900 px-4 py-2 font-display text-[10px] uppercase tracking-widest text-sun transition-colors hover:bg-brand-600 hover:text-ink-950"
+      >
+        &gt; CONTINUE
+      </a>
+      <a
+        href="/blog/"
+        class="inline-block border-2 border-wood-600 bg-ink-900 px-4 py-2 font-display text-[10px] uppercase tracking-widest text-cream-300 transition-colors hover:border-sun hover:text-sun"
+      >
+        &gt; ALL POSTS
+      </a>
+    </div>
+  </section>
+</BaseLayout>

@@ -17,19 +17,33 @@ const {
 ---
 
 <figure class={`not-prose my-8 ${className}`}>
-  <video
-    controls
-    preload="metadata"
-    poster={poster}
-    title={title}
-    playsinline
-    class="w-full rounded-xl border border-neutral-800 bg-black"
-  >
-    <source src={src} />
-    Your browser does not support the video tag.
-  </video>
+  <div class="pixel-frame bg-ink-900">
+    <div class="flex items-center gap-3 border-b-2 border-wood-600 bg-wood-700 px-3 py-1.5">
+      <span class="flex gap-1.5" aria-hidden="true">
+        <span class="h-2 w-2 bg-brand-600"></span>
+        <span class="h-2 w-2 bg-sun"></span>
+        <span class="h-2 w-2 bg-led"></span>
+      </span>
+      <span class="font-terminal text-base uppercase text-cream-300">
+        VIDEO // self-hosted
+      </span>
+    </div>
+    <div class="p-2">
+      <video
+        controls
+        preload="metadata"
+        poster={poster}
+        title={title}
+        playsinline
+        class="pixelated w-full border-2 border-wood-700 bg-black"
+      >
+        <source src={src} />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
   {(title || caption) && (
-    <figcaption class="mt-2 text-center text-xs text-neutral-500">
+    <figcaption class="mt-2 text-center font-terminal text-base text-muted">
       {caption ?? title}
     </figcaption>
   )}

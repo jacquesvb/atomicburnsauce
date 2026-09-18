@@ -16,29 +16,29 @@ const links = [
     href: `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`,
   },
   {
-    label: 'Mastodon',
+    label: 'MASTODON',
     href: `https://mastodonshare.com/?text=${encodedText}&url=${encodedUrl}`,
   },
   {
-    label: 'LinkedIn',
+    label: 'LINKEDIN',
     href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
   },
   {
-    label: 'Reddit',
+    label: 'REDDIT',
     href: `https://www.reddit.com/submit?url=${encodedUrl}&title=${encodeURIComponent(title)}`,
   },
 ];
 
-const linkClass =
-  'rounded-full border border-neutral-700 bg-neutral-900 px-3 py-1 text-xs font-medium text-neutral-300 transition-colors hover:border-brand-500 hover:text-brand-400';
+const buttonClass =
+  'inline-block border-2 border-wood-600 bg-ink-900 px-3 py-1 font-display text-[9px] uppercase tracking-wider text-cream-300 transition-colors hover:border-brand-500 hover:text-sun active:translate-y-px';
 ---
 
 <aside
-  class="flex flex-wrap items-center gap-2 border-y border-neutral-800/80 py-4"
+  class="flex flex-wrap items-center gap-2 border-y-2 border-wood-800 py-4"
   aria-label="Share this post"
 >
-  <span class="mr-1 text-xs uppercase tracking-wide text-neutral-500">
-    Share
+  <span class="mr-1 font-terminal text-base uppercase text-muted">
+    SHARE &gt;
   </span>
   {
     links.map((link) => (
@@ -46,14 +46,14 @@ const linkClass =
         href={link.href}
         target="_blank"
         rel="noopener noreferrer"
-        class={linkClass}
+        class={buttonClass}
       >
         {link.label}
       </a>
     ))
   }
-  <button type="button" data-copy-url={url} class={linkClass}>
-    Copy link
+  <button type="button" data-copy-url={url} class={buttonClass}>
+    COPY LINK
   </button>
 </aside>
 
@@ -66,9 +66,9 @@ const linkClass =
 
       try {
         await navigator.clipboard.writeText(url);
-        button.textContent = 'Copied!';
+        button.textContent = 'COPIED!';
       } catch {
-        button.textContent = 'Copy failed';
+        button.textContent = 'FAILED';
       }
 
       setTimeout(() => {

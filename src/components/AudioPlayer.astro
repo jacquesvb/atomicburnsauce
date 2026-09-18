@@ -10,16 +10,24 @@ const { src, title, caption, class: className = '' } = Astro.props;
 ---
 
 <figure class={`not-prose my-8 ${className}`}>
-  <div
-    class="rounded-xl border border-neutral-800 bg-neutral-900 p-4"
-    role="group"
-    aria-label={title ?? 'Audio player'}
-  >
-    {title && <p class="mb-3 text-sm font-medium text-neutral-200">{title}</p>}
-    <audio controls preload="metadata" src={src} class="w-full"></audio>
+  <div class="pixel-frame bg-ink-900">
+    <div
+      class="flex items-center justify-between border-b-2 border-wood-600 bg-wood-700 px-3 py-1.5"
+    >
+      <span class="flex items-center gap-2">
+        <span class="h-2 w-2 bg-led shadow-[0_0_6px_var(--color-led)]"></span>
+        <span class="font-terminal text-base uppercase text-cream-300">
+          AUDIO
+        </span>
+      </span>
+      {title && <span class="font-terminal text-base text-muted">{title}</span>}
+    </div>
+    <div class="p-3">
+      <audio controls preload="metadata" src={src} class="w-full"></audio>
+    </div>
   </div>
   {caption && (
-    <figcaption class="mt-2 text-center text-xs text-neutral-500">
+    <figcaption class="mt-2 text-center font-terminal text-base text-muted">
       {caption}
     </figcaption>
   )}

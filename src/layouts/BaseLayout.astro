@@ -1,5 +1,11 @@
 ---
+import '@fontsource/press-start-2p/latin-400.css';
+import '@fontsource/ibm-plex-mono/latin-400.css';
+import '@fontsource/ibm-plex-mono/latin-600.css';
+import '@fontsource/vt323/latin-400.css';
 import '../styles/global.css';
+import CRTEffects from '../components/CRTEffects.astro';
+import CRTToggle from '../components/CRTToggle.astro';
 
 interface Props {
   title?: string;
@@ -13,7 +19,7 @@ interface Props {
 
 const {
   title,
-  description = 'Atomic Burn Sauce — notes, sounds, and moving pictures.',
+  description = 'Atomic Burn Sauce — programming, vintage computers, and videogames.',
   image,
   type = 'website',
   publishedTime,
@@ -24,17 +30,39 @@ const {
 const siteName = 'Atomic Burn Sauce';
 const pageTitle = title ? `${title} | ${siteName}` : siteName;
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
-const ogImage = image;
+const ogImage = image ?? new URL('/og-default.png', Astro.site).toString();
+
+const navLink =
+  'inline-block border-2 border-wood-600 bg-ink-900 px-2 py-1 text-[10px] uppercase tracking-widest text-cream-300 transition-colors hover:border-brand-500 hover:text-sun';
+const navLinks = [
+  { href: '/blog/', label: 'Blog' },
+  { href: '/tags/', label: 'Tags' },
+  { href: '/rss.xml', label: 'RSS' },
+];
 ---
 
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en" data-crt="on">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem('crt');
+          var reduce = window.matchMedia('(prefers-reduced-motion: reduce)')
+            .matches;
+          var on = stored === null ? !reduce : stored === 'on';
+          document.documentElement.dataset.crt = on ? 'on' : 'off';
+        } catch (e) {
+          document.documentElement.dataset.crt = 'on';
+        }
+      })();
+    </script>
 
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
@@ -79,10 +107,7 @@ const ogImage = image;
         tags.map((tag) => <meta property="article:tag" content={tag} />)
     }
 
-    <meta
-      name="twitter:card"
-      content={ogImage ? 'summary_large_image' : 'summary'}
-    />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:url" content={canonical} />
@@ -91,22 +116,32 @@ const ogImage = image;
         <meta name="twitter:image" content={ogImage} />
       )
     }
+
+    <meta name="theme-color" content="#17100a" />
   </head>
-  <body class="min-h-screen flex flex-col">
-    <header class="border-b border-neutral-800/80">
+  <body class="flex min-h-screen flex-col">
+    <CRTEffects />
+
+    <header class="wood-panel border-b-2 border-wood-800">
       <nav
-        class="mx-auto flex w-full max-w-3xl items-center justify-between px-5 py-4"
+        class="mx-auto flex w-full max-w-3xl flex-wrap items-center justify-between gap-x-4 gap-y-3 px-5 py-4"
       >
         <a
           href="/"
-          class="font-serif text-lg font-semibold tracking-tight text-neutral-50 transition-colors hover:text-brand-400"
+          class="font-display text-[11px] leading-relaxed text-brand-400 glow-text transition-colors hover:text-sun sm:text-xs"
         >
-          Atomic Burn Sauce
+          <span class="text-sun">&gt;</span> ATOMIC{' '}
+          <span class="text-cream-100">BURN</span> SAUCE<span
+            class="cursor-blink"></span>
         </a>
-        <div class="flex items-center gap-5 text-sm text-neutral-400">
-          <a class="transition-colors hover:text-brand-400" href="/blog/">Blog</a>
-          <a class="transition-colors hover:text-brand-400" href="/tags/">Tags</a>
-          <a class="transition-colors hover:text-brand-400" href="/rss.xml">RSS</a>
+        <div class="flex items-center gap-2">
+          {
+            navLinks.map((link) => (
+              <a href={link.href} class={navLink}>
+                {link.label}
+              </a>
+            ))
+          }
         </div>
       </nav>
     </header>
@@ -115,17 +150,18 @@ const ogImage = image;
       <slot />
     </main>
 
-    <footer class="border-t border-neutral-800/80">
+    <footer class="border-t-2 border-wood-800 bg-ink-900">
       <div
-        class="mx-auto w-full max-w-3xl px-5 py-6 text-sm text-neutral-500"
+        class="mx-auto flex w-full max-w-3xl flex-col gap-3 px-5 py-5 sm:flex-row sm:items-center sm:justify-between"
       >
-        <p>
-          &copy; {new Date().getFullYear()} Atomic Burn Sauce. Built with
+        <p class="font-terminal text-lg text-muted">
+          &copy; {new Date().getFullYear()} ATOMIC BURN SAUCE &middot; POWERED BY{' '}
           <a
-            class="underline decoration-neutral-700 underline-offset-4 transition-colors hover:text-brand-400"
-            href="https://astro.build">Astro</a
-          >.
+            class="underline decoration-wood-600 underline-offset-4 transition-colors hover:text-sun"
+            href="https://astro.build">ASTRO</a
+          >
         </p>
+        <CRTToggle />
       </div>
     </footer>
   </body>

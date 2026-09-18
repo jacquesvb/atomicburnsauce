@@ -31,22 +31,24 @@ const ogImage = heroImage
   tags={tags}
 >
   <article class="flex flex-col gap-8">
-    <header class="flex flex-col gap-4">
+    <header class="flex flex-col gap-5">
       <h1
-        class="font-serif text-3xl font-semibold leading-tight tracking-tight text-neutral-50 sm:text-4xl"
+        class="font-display text-lg leading-relaxed text-brand-400 glow-text sm:text-2xl sm:leading-relaxed"
       >
         {title}
       </h1>
 
-      <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-neutral-500">
-        <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
-        <span aria-hidden="true">&middot;</span>
-        <span>{readingTime} min read</span>
+      <div
+        class="font-terminal text-lg uppercase tracking-wide text-muted"
+      >
+        <span class="text-sun">DATE</span> {formatDate(pubDate)}
+        <span class="mx-2 text-wood-500">//</span>
+        <span class="text-sun">TIME</span> {readingTime} MIN
         {
           updatedDate && (
             <>
-              <span aria-hidden="true">&middot;</span>
-              <span>Updated {formatDate(updatedDate)}</span>
+              <span class="mx-2 text-wood-500">//</span>
+              <span class="text-sun">UPDATED</span> {formatDate(updatedDate)}
             </>
           )
         }
@@ -62,25 +64,27 @@ const ogImage = heroImage
           alt={heroImageAlt ?? ''}
           widths={[640, 960, 1280]}
           sizes="(min-width: 768px) 768px, 100vw"
-          class="w-full rounded-xl border border-neutral-800 object-cover"
+          class="pixel-frame pixelated w-full object-cover"
         />
       )
     }
 
     <ShareLinks url={postUrl} title={title} />
 
-    <div
-      class="prose prose-invert prose-neutral max-w-none prose-headings:font-serif prose-a:text-brand-400 prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl"
-    >
-      <slot />
+    <div class="pixel-frame bg-ink-900 p-5 sm:p-8">
+      <div
+        class="prose prose-invert prose-neutral max-w-none"
+      >
+        <slot />
+      </div>
     </div>
 
-    <footer class="border-t border-neutral-800/80 pt-6">
+    <footer class="border-t-2 border-wood-800 pt-6">
       <a
         href="/blog/"
-        class="text-sm text-neutral-400 transition-colors hover:text-brand-400"
+        class="font-display text-[10px] uppercase tracking-widest text-muted transition-colors hover:text-sun"
       >
-        &larr; All posts
+        &lt; BACK TO ALL POSTS
       </a>
     </footer>
   </article>

@@ -27,7 +27,7 @@ function buildSrc(): string {
     case 'soundcloud':
       return `https://w.soundcloud.com/player/?url=${encodeURIComponent(
         id ?? '',
-      )}&color=%23f97316&auto_play=false&hide_related=true&show_comments=false&show_user=true&visual=true`;
+      )}&color=%23ffc91f&auto_play=false&hide_related=true&show_comments=false&show_user=true&visual=true`;
     case 'bandcamp':
       return id ?? '';
   }
@@ -36,7 +36,6 @@ function buildSrc(): string {
 const embedSrc = buildSrc();
 const isVideo = provider === 'youtube' || provider === 'vimeo';
 const frameHeight = height ?? (provider === 'soundcloud' ? 166 : 152);
-
 const label =
   title ?? `${provider.charAt(0).toUpperCase() + provider.slice(1)} embed`;
 ---
@@ -44,31 +43,45 @@ const label =
 {
   embedSrc && (
     <figure class={`not-prose my-8 ${className}`}>
-      {isVideo ? (
-        <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-800">
-          <iframe
-            src={embedSrc}
-            title={label}
-            loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-            class="absolute inset-0 h-full w-full"
-          />
+      <div class="pixel-frame bg-ink-900">
+        <div class="flex items-center gap-3 border-b-2 border-wood-600 bg-wood-700 px-3 py-1.5">
+          <span class="flex gap-1.5" aria-hidden="true">
+            <span class="h-2 w-2 bg-brand-600"></span>
+            <span class="h-2 w-2 bg-sun"></span>
+            <span class="h-2 w-2 bg-led"></span>
+          </span>
+          <span class="font-terminal text-base uppercase text-cream-300">
+            {provider} // external
+          </span>
         </div>
-      ) : (
-        <iframe
-          src={embedSrc}
-          title={label}
-          loading="lazy"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-          style={`height: ${frameHeight}px`}
-          class="w-full rounded-xl border border-neutral-800"
-        />
-      )}
+        <div class="p-2">
+          {isVideo ? (
+            <div class="relative aspect-video overflow-hidden border-2 border-wood-700 bg-black">
+              <iframe
+                src={embedSrc}
+                title={label}
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                class="absolute inset-0 h-full w-full"
+              />
+            </div>
+          ) : (
+            <iframe
+              src={embedSrc}
+              title={label}
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              style={`height: ${frameHeight}px`}
+              class="w-full border-2 border-wood-700"
+            />
+          )}
+        </div>
+      </div>
       {title && (
-        <figcaption class="mt-2 text-center text-xs text-neutral-500">
+        <figcaption class="mt-2 text-center font-terminal text-base text-muted">
           {title}
         </figcaption>
       )}

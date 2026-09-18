@@ -1,0 +1,66 @@
+{
+  "name": "atari-8bit",
+  "type": "dark",
+  "colors": {
+    "editor.background": "#120b06",
+    "editor.foreground": "#f6ecd9"
+  },
+  "tokenColors": [
+    {
+      "scope": ["comment", "punctuation.definition.comment"],
+      "settings": { "foreground": "#8a7358", "fontStyle": "italic" }
+    },
+    {
+      "scope": ["string", "punctuation.definition.string", "string.quoted"],
+      "settings": { "foreground": "#a8e10c" }
+    },
+    {
+      "scope": ["constant.numeric", "constant.language", "constant.character.escape"],
+      "settings": { "foreground": "#ff8a3d" }
+    },
+    {
+      "scope": ["keyword", "keyword.control", "keyword.operator"],
+      "settings": { "foreground": "#e1251b" }
+    },
+    {
+      "scope": ["storage", "storage.type", "storage.modifier"],
+      "settings": { "foreground": "#23c4d6" }
+    },
+    {
+      "scope": ["entity.name.function", "support.function", "meta.function-call"],
+      "settings": { "foreground": "#ffc91f" }
+    },
+    {
+      "scope": ["entity.name.type", "entity.name.class", "support.class", "support.type"],
+      "settings": { "foreground": "#ffb03a" }
+    },
+    {
+      "scope": ["variable", "variable.parameter", "variable.other"],
+      "settings": { "foreground": "#f6ecd9" }
+    },
+    {
+      "scope": ["entity.name.tag", "punctuation.definition.tag"],
+      "settings": { "foreground": "#e1251b" }
+    },
+    {
+      "scope": ["entity.other.attribute-name"],
+      "settings": { "foreground": "#ffc91f" }
+    },
+    {
+      "scope": ["punctuation", "meta.brace", "punctuation.separator"],
+      "settings": { "foreground": "#b59a76" }
+    },
+    {
+      "scope": ["constant.other.color", "support.constant"],
+      "settings": { "foreground": "#ff8a3d" }
+    },
+    {
+      "scope": ["markup.heading", "markup.bold"],
+      "settings": { "foreground": "#ffc91f", "fontStyle": "bold" }
+    },
+    {
+      "scope": ["invalid", "invalid.illegal"],
+      "settings": { "foreground": "#e1251b", "fontStyle": "underline" }
+    }
+  ]
+}

@@ -7,27 +7,29 @@ const tags = await getAllTags();
 
 <BaseLayout title="Tags" description="Browse posts by tag.">
   <section class="mb-10 flex flex-col gap-3">
-    <h1 class="font-serif text-3xl font-semibold tracking-tight text-neutral-50">
-      Tags
+    <h1
+      class="font-display text-lg leading-relaxed text-brand-400 glow-text sm:text-2xl sm:leading-relaxed"
+    >
+      TAGS
     </h1>
-    <p class="text-neutral-400">
-      {tags.length} tags across all published posts.
+    <p class="font-terminal text-lg uppercase text-muted">
+      {tags.length} tags detected
     </p>
   </section>
 
   {
     tags.length === 0 ? (
-      <p class="text-neutral-500">No tags yet.</p>
+      <p class="font-terminal text-lg text-muted">NO TAGS YET.</p>
     ) : (
       <ul class="flex flex-wrap gap-3">
         {tags.map(({ tag, count }) => (
           <li>
             <a
               href={`/tags/${tagSlug(tag)}/`}
-              class="inline-flex items-center gap-2 rounded-full border border-neutral-700 bg-neutral-900 px-4 py-2 text-sm text-neutral-200 transition-colors hover:border-brand-500 hover:text-brand-400"
+              class="inline-flex items-center gap-2 border-2 border-wood-600 bg-ink-900 px-3 py-1.5 font-terminal text-lg uppercase leading-tight text-cream-300 transition-colors hover:border-brand-500 hover:text-sun"
             >
-              <span>#{tag}</span>
-              <span class="text-xs text-neutral-500">{count}</span>
+              <span>[{tag}]</span>
+              <span class="text-sm text-muted">{count}</span>
             </a>
           </li>
         ))}
