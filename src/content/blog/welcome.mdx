@@ -16,12 +16,13 @@ images, self-hosted media, and third-party embeds.
 
 ## Images
 
-Images can live in `public/` and be referenced with plain Markdown:
+Images can live alongside the content and be referenced with a relative path:
 
-![A self-hosted diagram from the public folder](/images/diagram.png)
+![A pixel diagram from the assets folder](../../assets/diagram.png)
 
-Or they can be imported and optimized through Astro's asset pipeline. The hero image
-above is a good example.
+Or they can be referenced from `public/` with a path that Astro rewrites for the
+deployment base. The hero image above is imported and optimized through Astro's asset
+pipeline.
 
 ## Self-hosted media
 

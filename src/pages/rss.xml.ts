@@ -1,19 +1,21 @@
 import rss from '@astrojs/rss';
 import type { APIContext } from 'astro';
 import { getPublishedPosts } from '../lib/posts';
+import { absolute } from '../lib/urls';
 
 export async function GET(context: APIContext) {
   const posts = await getPublishedPosts();
+  const site = context.site?.toString() ?? 'https://atomicburnsauce.com';
 
   return rss({
     title: 'Atomic Burn Sauce',
     description: 'Notes, sounds, and moving pictures.',
-    site: context.site ?? 'https://atomicburnsauce.com',
+    site: absolute('/', site),
     items: posts.map((post) => ({
       title: post.data.title,
       description: post.data.description,
       pubDate: post.data.pubDate,
-      link: `/blog/${post.id}/`,
+      link: absolute(`/blog/${post.id}/`, site),
       categories: post.data.tags,
     })),
     customData: '<language>en-us</language>',

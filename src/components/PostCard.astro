@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import type { Post } from '../lib/posts';
 import { formatDate } from '../lib/posts';
+import { withBase } from '../lib/urls';
 import TagList from './TagList.astro';
 
 interface Props {
@@ -12,7 +13,7 @@ interface Props {
 const { post, index } = Astro.props;
 const { title, description, pubDate, heroImage, heroImageAlt, tags } =
   post.data;
-const href = `/blog/${post.id}/`;
+const href = withBase(`/blog/${post.id}/`);
 const cart = index !== undefined ? String(index).padStart(2, '0') : null;
 ---
 

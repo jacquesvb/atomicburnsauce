@@ -12,10 +12,12 @@ interface Props {
 
 const { provider, id, src, title, height, class: className = '' } = Astro.props;
 
+import { withBase } from '../lib/urls';
+
 const cleanId = id?.replace(/^\/+/, '');
 
 function buildSrc(): string {
-  if (src) return src;
+  if (src) return withBase(src);
 
   switch (provider) {
     case 'youtube':

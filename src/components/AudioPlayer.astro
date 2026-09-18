@@ -6,7 +6,10 @@ interface Props {
   class?: string;
 }
 
+import { withBase } from '../lib/urls';
+
 const { src, title, caption, class: className = '' } = Astro.props;
+const resolvedSrc = withBase(src);
 ---
 
 <figure class={`not-prose my-8 ${className}`}>
@@ -23,7 +26,7 @@ const { src, title, caption, class: className = '' } = Astro.props;
       {title && <span class="font-terminal text-base text-muted">{title}</span>}
     </div>
     <div class="p-3">
-      <audio controls preload="metadata" src={src} class="w-full"></audio>
+      <audio controls preload="metadata" src={resolvedSrc} class="w-full"></audio>
     </div>
   </div>
   {caption && (

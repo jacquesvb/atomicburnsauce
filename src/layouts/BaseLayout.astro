@@ -6,6 +6,7 @@ import '@fontsource/vt323/latin-400.css';
 import '../styles/global.css';
 import CRTEffects from '../components/CRTEffects.astro';
 import CRTToggle from '../components/CRTToggle.astro';
+import { withBase, absolute } from '../lib/urls';
 
 interface Props {
   title?: string;
@@ -30,14 +31,14 @@ const {
 const siteName = 'Atomic Burn Sauce';
 const pageTitle = title ? `${title} | ${siteName}` : siteName;
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
-const ogImage = image ?? new URL('/og-default.png', Astro.site).toString();
+const ogImage = image ?? absolute('/og-default.png', Astro.site);
 
 const navLink =
   'inline-block border-2 border-wood-600 bg-ink-900 px-2 py-1 text-[10px] uppercase tracking-widest text-cream-300 transition-colors hover:border-brand-500 hover:text-sun';
 const navLinks = [
-  { href: '/blog/', label: 'Blog' },
-  { href: '/tags/', label: 'Tags' },
-  { href: '/rss.xml', label: 'RSS' },
+  { href: withBase('/blog/'), label: 'Blog' },
+  { href: withBase('/tags/'), label: 'Tags' },
+  { href: withBase('/rss.xml'), label: 'RSS' },
 ];
 ---
 
@@ -45,8 +46,8 @@ const navLinks = [
 <html lang="en" data-crt="on">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+    <link rel="icon" href={withBase('/favicon.ico')} />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
 
@@ -72,7 +73,7 @@ const navLinks = [
       rel="alternate"
       type="application/rss+xml"
       title={siteName}
-      href={new URL('rss.xml', Astro.site)}
+      href={absolute('/rss.xml', Astro.site)}
     />
 
     <meta property="og:site_name" content={siteName} />
@@ -127,7 +128,7 @@ const navLinks = [
         class="mx-auto flex w-full max-w-3xl flex-wrap items-center justify-between gap-x-4 gap-y-3 px-5 py-4"
       >
         <a
-          href="/"
+          href={withBase('/')}
           class="font-display text-[11px] leading-relaxed text-brand-400 glow-text transition-colors hover:text-sun sm:text-xs"
         >
           <span class="text-sun">&gt;</span> ATOMIC{' '}

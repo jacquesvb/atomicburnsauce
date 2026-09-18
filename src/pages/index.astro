@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PostCard from '../components/PostCard.astro';
 import { getPublishedPosts } from '../lib/posts';
+import { withBase } from '../lib/urls';
 import banner from '../assets/hero-welcome.png';
 
 const posts = await getPublishedPosts();
@@ -41,13 +42,13 @@ const recent = posts.slice(0, 5);
 
     <div class="flex flex-wrap gap-3">
       <a
-        href="/blog/"
+        href={withBase('/blog/')}
         class="inline-block border-2 border-brand-600 bg-ink-900 px-4 py-2 font-display text-[10px] uppercase tracking-widest text-sun transition-colors hover:bg-brand-600 hover:text-ink-950"
       >
         &gt; PRESS START
       </a>
       <a
-        href="/rss.xml"
+        href={withBase('/rss.xml')}
         class="inline-block border-2 border-wood-600 bg-ink-900 px-4 py-2 font-display text-[10px] uppercase tracking-widest text-cream-300 transition-colors hover:border-sun hover:text-sun"
       >
         &gt; RSS FEED
@@ -63,7 +64,7 @@ const recent = posts.slice(0, 5);
         RECENT POSTS
       </h2>
       <a
-        href="/blog/"
+        href={withBase('/blog/')}
         class="font-terminal text-base uppercase text-muted transition-colors hover:text-sun"
       >
         view all &gt;

@@ -17,7 +17,7 @@ const { title, description, pubDate, updatedDate, heroImage, heroImageAlt, tags 
 
 const postUrl = absoluteUrl(`/blog/${post.id}/`, Astro.site);
 const ogImage = heroImage
-  ? new URL(heroImage.src, Astro.site).toString()
+  ? absoluteUrl(heroImage.src, Astro.site)
   : undefined;
 ---
 
@@ -81,7 +81,7 @@ const ogImage = heroImage
 
     <footer class="border-t-2 border-wood-800 pt-6">
       <a
-        href="/blog/"
+        href={absoluteUrl('/blog/', Astro.site)}
         class="font-display text-[10px] uppercase tracking-widest text-muted transition-colors hover:text-sun"
       >
         &lt; BACK TO ALL POSTS

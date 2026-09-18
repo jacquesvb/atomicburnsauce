@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getAllTags, tagSlug } from '../../lib/posts';
+import { withBase } from '../../lib/urls';
 
 const tags = await getAllTags();
 ---
@@ -25,7 +26,7 @@ const tags = await getAllTags();
         {tags.map(({ tag, count }) => (
           <li>
             <a
-              href={`/tags/${tagSlug(tag)}/`}
+              href={withBase(`/tags/${tagSlug(tag)}/`)}
               class="inline-flex items-center gap-2 border-2 border-wood-600 bg-ink-900 px-3 py-1.5 font-terminal text-lg uppercase leading-tight text-cream-300 transition-colors hover:border-brand-500 hover:text-sun"
             >
               <span>[{tag}]</span>

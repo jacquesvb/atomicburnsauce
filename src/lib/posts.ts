@@ -1,4 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { withBase } from './urls';
 
 export type Post = CollectionEntry<'blog'>;
 
@@ -45,8 +46,10 @@ export function formatDate(date: Date): string {
 }
 
 export function absoluteUrl(path: string, site: URL | undefined): string {
-  return new URL(path, site ?? 'https://atomicburnsauce.com').toString();
+  return new URL(withBase(path), site ?? 'https://atomicburnsauce.com').toString();
 }
+
+export { withBase } from './urls';
 
 export function tagSlug(tag: string): string {
   return tag

@@ -136,7 +136,7 @@ html[data-crt="off"] .crt-overlay {
   background-color: var(--color-wood-700);
   background-image:
     linear-gradient(rgba(24, 12, 5, 0.62), rgba(24, 12, 5, 0.62)),
-    url("/textures/woodgrain.png");
+    url("../assets/woodgrain.png");
   background-size: auto, 160px 160px;
   background-repeat: repeat;
 }

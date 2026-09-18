@@ -7,6 +7,8 @@ interface Props {
   class?: string;
 }
 
+import { withBase } from '../lib/urls';
+
 const {
   src,
   poster,
@@ -14,6 +16,9 @@ const {
   caption,
   class: className = '',
 } = Astro.props;
+
+const resolvedSrc = withBase(src);
+const resolvedPoster = poster ? withBase(poster) : undefined;
 ---
 
 <figure class={`not-prose my-8 ${className}`}>
@@ -32,12 +37,12 @@ const {
       <video
         controls
         preload="metadata"
-        poster={poster}
+        poster={resolvedPoster}
         title={title}
         playsinline
         class="pixelated w-full border-2 border-wood-700 bg-black"
       >
-        <source src={src} />
+        <source src={resolvedSrc} />
         Your browser does not support the video tag.
       </video>
     </div>
