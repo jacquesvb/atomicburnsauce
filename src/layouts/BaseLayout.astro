@@ -20,7 +20,7 @@ interface Props {
 
 const {
   title,
-  description = 'Atomic Burn Sauce — programming, vintage computers, and videogames.',
+  description = 'AtomicBurnsauce — programming, vintage computers, and videogames.',
   image,
   type = 'website',
   publishedTime,
@@ -28,7 +28,7 @@ const {
   tags = [],
 } = Astro.props;
 
-const siteName = 'Atomic Burn Sauce';
+const siteName = 'AtomicBurnsauce';
 const pageTitle = title ? `${title} | ${siteName}` : siteName;
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 const ogImage = image ?? absolute('/og-default.png', Astro.site);
@@ -131,9 +131,9 @@ const navLinks = [
           href={withBase('/')}
           class="font-display text-[11px] leading-relaxed text-brand-400 glow-text transition-colors hover:text-sun sm:text-xs"
         >
-          <span class="text-sun">&gt;</span> ATOMIC{' '}
-          <span class="text-cream-100">BURN</span> SAUCE<span
-            class="cursor-blink"></span>
+          <span class="text-sun">&gt;</span> Atomic<span
+            class="text-cream-100">Burnsauce</span><span class="cursor-blink"
+          ></span>
         </a>
         <div class="flex items-center gap-2">
           {
@@ -156,7 +156,7 @@ const navLinks = [
         class="mx-auto flex w-full max-w-3xl flex-col gap-3 px-5 py-5 sm:flex-row sm:items-center sm:justify-between"
       >
         <p class="font-terminal text-lg text-muted">
-          &copy; {new Date().getFullYear()} ATOMIC BURN SAUCE &middot; POWERED BY{' '}
+          &copy; {new Date().getFullYear()} AtomicBurnsauce &middot; POWERED BY{' '}
           <a
             class="underline decoration-wood-600 underline-offset-4 transition-colors hover:text-sun"
             href="https://astro.build">ASTRO</a

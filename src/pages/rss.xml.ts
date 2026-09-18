@@ -8,7 +8,7 @@ export async function GET(context: APIContext) {
   const site = context.site?.toString() ?? 'https://atomicburnsauce.com';
 
   return rss({
-    title: 'Atomic Burn Sauce',
+    title: 'AtomicBurnsauce',
     description: 'Notes, sounds, and moving pictures.',
     site: absolute('/', site),
     items: posts.map((post) => ({
