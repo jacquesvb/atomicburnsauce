@@ -7,7 +7,8 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://atomicburnsauce.com',
+  site: 'https://jacquesvb.github.io',
+  base: '/atomicburnsauce/',
   integrations: [mdx(), sitemap()],
 
   vite: {
